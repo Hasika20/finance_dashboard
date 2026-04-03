@@ -1,0 +1,58 @@
+
+> finance-dashboard-backend@1.0.0 test
+> jest --detectOpenHandles --forceExit
+
+  console.log
+    ◇ injecting env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+      at _log (node_modules/dotenv/lib/main.js:131:11)
+
+[0mPOST /api/auth/login [32m200[0m 216.791 ms - 480[0m
+[0mPOST /api/auth/login [32m200[0m 121.795 ms - 486[0m
+[0mPOST /api/auth/login [33m401[0m 79.000 ms - 55[0m
+[0mGET /api/dashboard/summary [32m200[0m 9.928 ms - 200[0m
+[0mGET /api/dashboard/health-score [32m200[0m 9.558 ms - 572[0m
+[0mGET /api/records?type=EXPENSE&limit=5 [32m200[0m 14.923 ms - 2705[0m
+[0mPOST /api/records [32m201[0m 18.565 ms - 468[0m
+[0mPOST /api/records [33m403[0m 4.327 ms - 87[0m
+[0mPATCH /api/records/f1cca30e-36aa-4504-8c97-e01cc8c8bb27 [32m200[0m 26.475 ms - 467[0m
+[0mDELETE /api/records/f1cca30e-36aa-4504-8c97-e01cc8c8bb27 [32m200[0m 17.025 ms - 68[0m
+[0mGET /api/records/f1cca30e-36aa-4504-8c97-e01cc8c8bb27 [33m404[0m 5.070 ms - 56[0m
+\nFAIL src/__tests__/api.test.ts (7.61 s)
+  API Integration Tests
+    1. Authentication API
+      √ should login as ADMIN and return a token (359 ms)
+      √ should login as VIEWER and return a token (137 ms)
+      √ should reject bad credentials (91 ms)
+    2. Dashboard Analytics API
+      √ should fetch the financial summary correctly (19 ms)
+      √ should fetch the health score correctly (20 ms)
+    3. Financial Records API (CRUD)
+      × should list all records (28 ms)
+      √ should create a new record (Admin) (28 ms)
+      √ should reject creating a record for a Viewer (RBAC check) (14 ms)
+      √ should update a record (37 ms)
+      √ should soft-delete a record (28 ms)
+      √ should no longer see the soft-deleted record in standard queries (14 ms)
+
+  ● API Integration Tests › 3. Financial Records API (CRUD) › should list all records
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+    [0m [90m 74 |[39m       
+     [90m 75 |[39m       expect(res[33m.[39mstatus)[33m.[39mtoBe([35m200[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 76 |[39m       expect(res[33m.[39mbody[33m.[39mdata[33m.[39mmeta)[33m.[39mtoBeDefined()[33m;[39m
+     [90m    |[39m                                  [31m[1m^[22m[39m
+     [90m 77 |[39m       expect([33mArray[39m[33m.[39misArray(res[33m.[39mbody[33m.[39mdata[33m.[39mrecords))[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m 78 |[39m     })[33m;[39m
+     [90m 79 |[39m[0m
+
+      at Object.<anonymous> (src/__tests__/api.test.ts:76:34)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 10 passed, 11 total
+Snapshots:   0 total
+Time:        8.033 s
+Ran all test suites.
